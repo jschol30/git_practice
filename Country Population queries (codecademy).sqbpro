@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="/Users/josh/Downloads/sql-population-queries-part-ii-solution 2/db.sqlite" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><current_tab id="0"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1221"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="countries"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1">SELECT COUNT(*) 
+FROM countries
+WHERE continent = 'Africa';
+
+WITH combined as (
+	SELECT countries.name,
+		countries.continent, 
+		population_years.population,
+		population_years.year
+	FROM countries
+	JOIN population_years
+	ON countries.id = population_years.country_id
+	)
+SELECT SUM(population)
+FROM combined
+WHERE continent = 'Oceania'
+AND year = 2005;
+
+WITH combined as (
+	SELECT countries.name,
+		countries.continent, 
+		population_years.population,
+		population_years.year
+	FROM countries
+	JOIN population_years
+	ON countries.id = population_years.country_id
+	)
+SELECT ROUND(AVG(population),2)
+FROM combined
+WHERE continent = 'South America'
+AND year = 2003;
+
+WITH combined as (
+	SELECT countries.name,
+		countries.continent, 
+		population_years.population,
+		population_years.year
+	FROM countries
+	JOIN population_years
+	ON countries.id = population_years.country_id
+	)
+SELECT MIN(population)
+FROM combined
+WHERE year = 2007;
+
+WITH combined as (
+	SELECT countries.name,
+		countries.continent, 
+		population_years.population,
+		population_years.year
+	FROM countries
+	JOIN population_years
+	ON countries.id = population_years.country_id
+	)
+SELECT combined.name, 
+	ROUND(AVG(combined.population),2)
+FROM combined
+WHERE name = 'Poland';
+
+WITH combined as (
+	SELECT countries.name,
+		countries.continent, 
+		population_years.population,
+		population_years.year
+	FROM countries
+	JOIN population_years
+	ON countries.id = population_years.country_id
+	)
+SELECT COUNT(*)
+FROM combined
+WHERE name LIKE '%The%';
+
+WITH combined as (
+	SELECT countries.name,
+		countries.continent, 
+		population_years.population,
+		population_years.year
+	FROM countries
+	JOIN population_years
+	ON countries.id = population_years.country_id
+	)
+SELECT combined.continent, 
+	ROUND(SUM(combined.population),2)
+FROM combined
+WHERE year = 2010
+GROUP BY 1
+ORDER BY 2 DESC;
+
+
+
+
+
+
+	</sql><current_tab id="0"/></tab_sql></sqlb_project>
